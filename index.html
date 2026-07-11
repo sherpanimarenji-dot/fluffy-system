@@ -48,10 +48,10 @@
         .action-btns { display: flex; gap: 8px; }
         .btn-download { background-color: #1f7246; color: white; border: none; padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 13px; }
         .btn-download:hover { background-color: #154d2f; }
-        .btn-print { background-color: #34495e; color: white; border: none; padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 13px; }
-        .btn-print:hover { background-color: #1e2b37; }
         .btn-invoice { background-color: #d35400; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
         .btn-invoice:hover { background-color: #ba4a00; }
+        .btn-delete { background-color: #e74c3c; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .btn-delete:hover { background-color: #c0392b; }
 
         /* 🖨️ प्रिन्ट गर्दा ए४ साइजमा बिल मात्र चिटिक्क देखाउने संरचना */
         #print-invoice-area { display: none; }
@@ -141,7 +141,6 @@
             <div id="tab-cashbank" class="tab-content">
                 <h2>💰 नगद तथा बैंक खाता व्यवस्थापन (Cash/Bank Controls)</h2>
                 <div class="action-box" style="margin-top: 20px;">
-                    <!-- थप्ने फारम -->
                     <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #27ae60;">
                         <h4>➕ मौज्दात थप्नुहोस् (Deposit)</h4>
                         <label>खाता छान्नुहोस्:</label>
@@ -154,7 +153,6 @@
                         <button type="button" class="btn" onclick="quickDeposit()" style="margin-top:10px;">खातामा रकम थप्नुहोस्</button>
                     </div>
 
-                    <!-- बैंक/नगद घटाउने फारम -->
                     <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #e74c3c;">
                         <h4>➖ बैंक/नगद घटाउनुहोस् (Withdraw)</h4>
                         <label>कुन खाताबाट घटाउने?:</label>
@@ -169,7 +167,6 @@
                         <button type="button" class="btn" onclick="quickWithdraw()" style="margin-top:10px; background-color: #e74c3c;">खाताबाट रकम घटाउने</button>
                     </div>
 
-                    <!-- ट्रान्सफर फारम -->
                     <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #3498db;">
                         <h4>🔄 रकम ट्रान्सफर (Internal Transfer)</h4>
                         <label>कहाँबाट (From):</label>
@@ -248,7 +245,7 @@
                 </div>
             </div>
 
-            <!-- ट्याब ४: बिक्री -->
+            <!-- ट्याब ४: बिक्री काउन्टर -->
             <div id="tab-sales" class="tab-content">
                 <h2>🛒 नयाँ बिक्री बिलिङ काउन्टर (POS Counter)</h2>
                 <div style="max-width: 600px; margin: auto;">
@@ -280,12 +277,12 @@
                             </select>
                         </div>
                         
-                        <button type="button" class="btn" style="background-color: #3498db;" onclick="processSale()">बिक्री सुरक्षित गर्नुहोस्</button>
+                        <button type="button" class="btn" style="background-color: #3498db;" onclick="processSale()">🛒 बिक्री सुरक्षित गरी बिल प्रिन्ट गर्नुहोस्</button>
                     </form>
                 </div>
             </div>
 
-            <!-- ट्याब ५: उधारो र पार्टी भुक्तानी -->
+            <!-- ट्याब ५: उधारो खाता -->
             <div id="tab-ledger" class="tab-content">
                 <h2>👥 दुईतर्फी उधारो र भुक्तानी बहीखाता (Ledgers)</h2>
                 <div class="ledger-box">
@@ -309,7 +306,7 @@
                 </div>
             </div>
 
-            <!-- ट्याब ६: एकीकृत स्टेटमेन्ट र रिपोर्टहरू -->
+            <!-- ट्याब ६: रिपोर्ट तथा स्टेटमेन्ट -->
             <div id="tab-reports" class="tab-content">
                 <h2>📋 विस्तृत आर्थिक बहीखाता तथा स्टेटमेन्टहरू</h2>
                 
@@ -323,49 +320,43 @@
                     </div>
                 </div>
 
-                <!-- सामान बिक्री इतिहास - यहाँबाट A4 बिल प्रिन्ट हुन्छ -->
-                <div class="ledger-box">
-                    <div class="report-header-box">
-                        <h3 style="color: #2c3e50;">🛒 सामान बिक्रीको इतिहास (Sales Report)</h3>
-                        <div class="action-btns">
-                            <button class="btn-download" onclick="downloadExcel('sales-report-table', 'बिक्री_इतिहास_रिपोर्ट')">📥 Excel</button>
-                        </div>
-                    </div>
-                    <table id="sales-report-table">
-                        <thead>
-                            <tr><th>मिति/समय</th><th>ग्राहकको नाम</th><th>सामानको नाम</th><th>परिमाण</th><th>कुल रकम (रु)</th><th>भुक्तानी प्रकार</th><th>बिल</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-                <!-- सामान खरिद इतिहास - यहाँबाट पनि A4 बिल प्रिन्ट हुन्छ -->
-                <div class="ledger-box" style="border-top: 2px solid #e67e22;">
-                    <div class="report-header-box">
-                        <h3 style="color: #e67e22;">📦 सामान खरिद भएको इतिहास (Purchase Report)</h3>
-                        <div class="action-btns">
-                            <button class="btn-download" onclick="downloadExcel('purchase-report-table', 'खरिद_इतिहास_रिपोर्ट')">📥 Excel</button>
-                        </div>
-                    </div>
-                    <table id="purchase-report-table">
-                        <thead>
-                            <tr><th>मिति/समय</th><th>सप्लायर/पार्टी</th><th>सामानको नाम</th><th>वर्ग</th><th>परिमाण</th><th>लागत मूल्य (रु)</th><th>खरिद विधि</th><th>बिल</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-                <!-- मास्टर स्टेटमेन्ट -->
+                <!-- एकीकृत मास्टर स्टेटमेन्ट - जहाँबाट कारोबार हटाउन र पुरानो बिल प्रिन्ट गर्न मिल्छ -->
                 <div class="ledger-box" style="border-top: 4px solid #2980b9;">
                     <div class="report-header-box">
-                        <h3>📜 एकीकृत मास्टर स्टेटमेन्ट (Master Statement)</h3>
+                        <h3>📜 एकीकृत मास्टर स्टेटमेन्ट (कारोबार रद्द/डिलिट मेनु)</h3>
                         <div class="action-btns">
                             <button class="btn-download" onclick="downloadExcel('master-statement-table', 'मास्टर_स्टेटमेन्ट')">📥 Excel</button>
                         </div>
                     </div>
                     <table id="master-statement-table">
                         <thead>
-                            <tr><th>मिति/समय</th><th>प्रकार</th><th>व्यक्ति/पार्टी</th><th>विवरण</th><th>कारोबार रकम</th><th>स्थिति</th></tr>
+                            <tr><th>मिति/समय</th><th>प्रकार</th><th>व्यक्ति/पार्टी</th><th>विवरण</th><th>कारोबार रकम</th><th>विधि</th><th>कार्यहरू</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- सामान बिक्री इतिहास -->
+                <div class="ledger-box">
+                    <div class="report-header-box">
+                        <h3 style="color: #2c3e50;">🛒 सामान बिक्रीको इतिहास (Sales Report)</h3>
+                    </div>
+                    <table id="sales-report-table">
+                        <thead>
+                            <tr><th>मिति/समय</th><th>ग्राहकको नाम</th><th>सामानको नाम</th><th>परिमाण</th><th>कुल रकम (रु)</th><th>भुक्तानी प्रकार</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- सामान खरिद इतिहास -->
+                <div class="ledger-box" style="border-top: 2px solid #e67e22;">
+                    <div class="report-header-box">
+                        <h3 style="color: #e67e22;">📦 सामान खरिद भएको इतिहास (Purchase Report)</h3>
+                    </div>
+                    <table id="purchase-report-table">
+                        <thead>
+                            <tr><th>मिति/समय</th><th>सप्लायर/पार्टी</th><th>सामानको नाम</th><th>वर्ग</th><th>परिमाण</th><th>लागत मूल्य (रु)</th><th>खरिद विधि</th></tr>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -376,7 +367,7 @@
     </div>
 </div>
 
-<!-- ३. प्रिन्ट लेआउट क्षेत्र (A4 बिल संरचना - सामान्यतया लुकेको हुन्छ) -->
+<!-- ३. प्रिन्ट लेआउट क्षेत्र (A4 बिल संरचना) -->
 <div id="print-invoice-area">
     <div class="invoice-title">🏔️ शेर्पा सप्लायर्स</div>
     <div class="invoice-subtitle">मदी नगरपालिका-१, चौकी बजार, संखुवासभा | फोन: ९XXXXXXXXX<br><b>कारोबार बिल (INVOICE)</b></div>
@@ -436,13 +427,12 @@
     function checkSystemLogin() {
         const uInput = document.getElementById('login-username').value.trim();
         const pInput = document.getElementById('login-password').value;
-
         if(uInput === USER_NAME && pInput === USER_PASS) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-system').style.display = 'block';
             initSystem();
         } else {
-            alert("⚠️ गलत युजरनेम वा पासवर्ड! कृपया पुनः प्रयास गर्नुहोस्।");
+            alert("⚠️ गलत युजरनेम वा पासवर्ड!");
         }
     }
 
@@ -465,19 +455,18 @@
         document.getElementById('bank-select-container').style.display = (mode === 'QR') ? 'block' : 'none';
     }
 
-    let products, credits, supplierCredits, supplierProfiles, totalCash, totalQR, salesReport, purchaseReport, cashBankReport, masterStatement;
+    let products, credits, supplierCredits, supplierProfiles, totalCash, totalQR, salesReport, purchaseReport, masterStatement;
 
     function initSystem() {
-        products = JSON.parse(localStorage.getItem('products_v12')) || [];
-        credits = JSON.parse(localStorage.getItem('credits_v12')) || {};
-        supplierCredits = JSON.parse(localStorage.getItem('supplier_credits_v12')) || {};
-        supplierProfiles = JSON.parse(localStorage.getItem('supplier_profiles_v12')) || {};
-        totalCash = parseFloat(localStorage.getItem('total_cash_v12')) || 0;
-        totalQR = parseFloat(localStorage.getItem('total_qr_v12')) || 0;
-        salesReport = JSON.parse(localStorage.getItem('sales_report_v12')) || [];
-        purchaseReport = JSON.parse(localStorage.getItem('purchase_report_v12')) || [];
-        cashBankReport = JSON.parse(localStorage.getItem('cash_bank_report_v12')) || [];
-        masterStatement = JSON.parse(localStorage.getItem('master_statement_v12')) || [];
+        products = JSON.parse(localStorage.getItem('products_v13')) || [];
+        credits = JSON.parse(localStorage.getItem('credits_v13')) || {};
+        supplierCredits = JSON.parse(localStorage.getItem('supplier_credits_v13')) || {};
+        supplierProfiles = JSON.parse(localStorage.getItem('supplier_profiles_v13')) || {};
+        totalCash = parseFloat(localStorage.getItem('total_cash_v13')) || 0;
+        totalQR = parseFloat(localStorage.getItem('total_qr_v13')) || 0;
+        salesReport = JSON.parse(localStorage.getItem('sales_report_v13')) || [];
+        purchaseReport = JSON.parse(localStorage.getItem('purchase_report_v13')) || [];
+        masterStatement = JSON.parse(localStorage.getItem('master_statement_v13')) || [];
         
         updateTables();
         calculateDashboard();
@@ -507,16 +496,15 @@
     }
 
     function saveToLocalStorage() {
-        localStorage.setItem('products_v12', JSON.stringify(products));
-        localStorage.setItem('credits_v12', JSON.stringify(credits));
-        localStorage.setItem('supplier_credits_v12', JSON.stringify(supplierCredits));
-        localStorage.setItem('supplier_profiles_v12', JSON.stringify(supplierProfiles));
-        localStorage.setItem('total_cash_v12', totalCash);
-        localStorage.setItem('total_qr_v12', totalQR);
-        localStorage.setItem('sales_report_v12', JSON.stringify(salesReport));
-        localStorage.setItem('purchase_report_v12', JSON.stringify(purchaseReport));
-        localStorage.setItem('cash_bank_report_v12', JSON.stringify(cashBankReport));
-        localStorage.setItem('master_statement_v12', JSON.stringify(masterStatement));
+        localStorage.setItem('products_v13', JSON.stringify(products));
+        localStorage.setItem('credits_v13', JSON.stringify(credits));
+        localStorage.setItem('supplier_credits_v13', JSON.stringify(supplierCredits));
+        localStorage.setItem('supplier_profiles_v13', JSON.stringify(supplierProfiles));
+        localStorage.setItem('total_cash_v13', totalCash);
+        localStorage.setItem('total_qr_v13', totalQR);
+        localStorage.setItem('sales_report_v13', JSON.stringify(salesReport));
+        localStorage.setItem('purchase_report_v13', JSON.stringify(purchaseReport));
+        localStorage.setItem('master_statement_v13', JSON.stringify(masterStatement));
     }
 
     function quickDeposit() {
@@ -524,7 +512,7 @@
         const amount = parseFloat(document.getElementById('dep-amount').value);
         if (!amount || amount <= 0) return;
         if (account === "Cash") totalCash += amount; else totalQR += amount;
-        cashBankReport.push({ timestamp: new Date().toLocaleString('ne-NP'), desc: "सिधै दाखिला", cash: account==="Cash"?amount:0, qr: account==="QR"?amount:0, type:"आय", balCash: totalCash, balQR: totalQR });
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "सिधै दाखिला", party: "सञ्चालक", desc: `खाता व्यवस्थापनबाट थप`, amt: amount, status: account });
         saveToLocalStorage(); initSystem(); document.getElementById('dep-amount').value = ''; alert("रकम जम्मा भयो।");
     }
 
@@ -534,8 +522,8 @@
         const reason = document.getElementById('wit-reason').value || "खर्च";
         if (!amount || amount <= 0) return;
         if (account === "Cash") totalCash -= amount; else totalQR -= amount;
-        cashBankReport.push({ timestamp: new Date().toLocaleString('ne-NP'), desc: reason, cash: account==="Cash"?-amount:0, qr: account==="QR"?-amount:0, type:"खर्च", balCash: totalCash, balQR: totalQR });
-        saveToLocalStorage(); initSystem(); document.getElementById('wit-amount').value = ''; alert("खर्च रेकرد भयो।");
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "नगद/बैंक खर्च", party: "विविध", desc: reason, amt: amount, status: account });
+        saveToLocalStorage(); initSystem(); document.getElementById('wit-amount').value = ''; alert("खर्च रेकर्ड भयो।");
     }
 
     function quickTransfer() {
@@ -543,7 +531,7 @@
         const amount = parseFloat(document.getElementById('trans-amount').value);
         if (!amount || from === to) return;
         if (from === "Cash") { totalCash -= amount; totalQR += amount; } else { totalQR -= amount; totalCash += amount; }
-        cashBankReport.push({ timestamp: new Date().toLocaleString('ne-NP'), desc: "रकमान्तर", cash: from==="Cash"?-amount:amount, qr: from==="QR"?-amount:amount, type:"रकमान्तर", balCash: totalCash, balQR: totalQR });
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "आन्तरिक रकमान्तर", party: "काउन्टर", desc: `${from} बाट ${to} मा ट्रान्सफर`, amt: amount, status: `${from}->${to}` });
         saveToLocalStorage(); initSystem(); alert("रकमान्तर सफल।");
     }
 
@@ -552,7 +540,7 @@
         const name = document.getElementById('p-name').value.trim(); const category = document.getElementById('p-category').value;
         const qty = parseInt(document.getElementById('p-qty').value); const cost = parseFloat(document.getElementById('p-cost').value);
         const price = parseFloat(document.getElementById('p-price').value); const mode = document.getElementById('p-mode').value;
-        const expiry = document.getElementById('p-expiry').value; const timestamp = new Date().toLocaleString('ne-NP');
+        const expiry = document.getElementById('p-expiry').value; const timestamp = new Date().toLocaleString('ne-NP'); const id = Date.now();
 
         if (!supplier || !name || !qty || !cost) return;
         const totalCost = qty * cost;
@@ -564,8 +552,8 @@
 
         if (mode === "Cash") totalCash -= totalCost; else if (mode === "QR") totalQR -= totalCost; else supplierCredits[supplier] = (supplierCredits[supplier] || 0) + totalCost;
 
-        purchaseReport.push({ timestamp, supplier, name, category, qty, cost, mode });
-        masterStatement.unshift({ timestamp, type: "खरिद दाखिला", party: supplier, desc: `${name} (${qty} Qty खरिद)`, amt: totalCost, status: mode });
+        purchaseReport.push({ id, timestamp, supplier, name, category, qty, cost, mode });
+        masterStatement.unshift({ id, timestamp, type: "खरिद दाखिला", party: supplier, desc: `${name} (${qty} Qty खरिद)`, amt: totalCost, status: mode, itemName: name, itemQty: qty });
 
         saveToLocalStorage(); initSystem(); document.getElementById('product-form').reset(); alert("सामान दाखिल भयो।");
     }
@@ -587,7 +575,7 @@
     function processSale() {
         const farmer = document.getElementById('s-farmer').value.trim(); const prodName = document.getElementById('s-product').value;
         const qty = parseInt(document.getElementById('s-qty').value); const mode = document.getElementById('s-mode').value;
-        const timestamp = new Date().toLocaleString('ne-NP');
+        const timestamp = new Date().toLocaleString('ne-NP'); const id = Date.now();
 
         if (!farmer || !prodName || !qty) return;
         const prod = products.find(p => p.name === prodName);
@@ -598,13 +586,18 @@
 
         if (mode === "Cash") totalCash += totalBill; else if (mode === "QR") totalQR += totalBill; else credits[farmer] = (credits[farmer] || 0) + totalBill;
 
-        salesReport.push({ timestamp, farmer, name: prodName, qty, total: totalBill, mode });
-        masterStatement.unshift({ timestamp, type: "बिल बिक्री", party: farmer, desc: `${prodName} (${qty} Qty)`, amt: totalBill, status: mode });
+        salesReport.push({ id, timestamp, farmer, name: prodName, qty, total: totalBill, mode });
+        masterStatement.unshift({ id, timestamp, type: "बिल बिक्री", party: farmer, desc: `${prodName} (${qty} Qty)`, amt: totalBill, status: mode, itemName: prodName, itemQty: qty });
 
-        saveToLocalStorage(); initSystem(); document.getElementById('sale-form').reset(); alert("बिक्री सुरक्षित भयो।");
+        saveToLocalStorage(); 
+        
+        // सिधै बिल प्रिन्ट पपअप खोल्ने
+        printA4Invoice('ग्राहक बिक्री (Sales)', farmer, timestamp, mode, prodName, qty, totalBill);
+        
+        initSystem(); 
+        document.getElementById('sale-form').reset();
     }
 
-    // 🖨️ A4 साइजमा बिल सेट गरेर प्रिन्ट विन्डो खोल्ने फङ्सन
     function printA4Invoice(type, party, date, mode, itemName, qty, total) {
         document.getElementById('inv-type').textContent = type;
         document.getElementById('inv-party').textContent = party;
@@ -618,15 +611,70 @@
         document.getElementById('inv-item-total').textContent = "रु " + total.toLocaleString();
         document.getElementById('inv-grand-total').textContent = "रु " + total.toLocaleString();
 
-        // प्रिन्ट प्रक्रिया सुरु गर्ने
         window.print();
+    }
+
+    // ❌ कारोबार डिलिट गर्ने मुख्य प्रणाली (रिभर्स इफेक्ट सहित)
+    function deleteTransaction(id) {
+        if(!confirm("⚠️ के तपाईं यो कारोबार सधैँको लागि हटाउन चाहनुहुन्छ? यसले स्टक र सेभिङ्सलाई पनि मिलाउनेछ।")) return;
+
+        const idx = masterStatement.findIndex(m => m.id === id);
+        if (idx === -1) return;
+
+        const tx = masterStatement[idx];
+
+        // १. यदि बिक्री बिल हो भने: स्टक फिर्ता बढाउने, पैसा घटाउने
+        if (tx.type === "बिल बिक्री") {
+            let prod = products.find(p => p.name.toLowerCase() === tx.itemName.toLowerCase());
+            if (prod) prod.qty += tx.itemQty; 
+
+            if (tx.status === "Cash") totalCash -= tx.amt;
+            else if (tx.status === "QR") totalQR -= tx.amt;
+            else if (tx.status === "Credit" && credits[tx.party]) {
+                credits[tx.party] -= tx.amt;
+                if (credits[tx.party] <= 0) delete credits[tx.party];
+            }
+            salesReport = salesReport.filter(s => s.id !== id);
+        }
+        // २. यदि खरिद दाखिला हो भने: स्टक घटाउने, पैसा फिर्ता बढाउने
+        else if (tx.type === "खरिद दाखिला") {
+            let prod = products.find(p => p.name.toLowerCase() === tx.itemName.toLowerCase());
+            if (prod) prod.qty -= tx.itemQty;
+
+            if (tx.status === "Cash") totalCash += tx.amt;
+            else if (tx.status === "QR") totalQR += tx.amt;
+            else if (tx.status === "Credit" && supplierCredits[tx.party]) {
+                supplierCredits[tx.party] -= tx.amt;
+                if (supplierCredits[tx.party] <= 0) delete supplierCredits[tx.party];
+            }
+            purchaseReport = purchaseReport.filter(p => p.id !== id);
+        }
+        // ३. सामान्य दाखिला वा खर्च व्यवस्थापन
+        else if (tx.type === "सिधै दाखिला") {
+            if (tx.status === "Cash") totalCash -= tx.amt; else totalQR -= tx.amt;
+        }
+        else if (tx.type === "नगद/बैंक खर्च") {
+            if (tx.status === "Cash") totalCash += tx.amt; else totalQR += tx.amt;
+        }
+        else if (tx.type === "आन्तरिक रकमान्तर") {
+            let parts = tx.status.split('->');
+            if(parts[0] === "Cash") { totalCash += tx.amt; totalQR -= tx.amt; } else { totalQR += tx.amt; totalCash -= tx.amt; }
+        }
+
+        // मास्टर लगबाट पनि हटाउने
+        masterStatement.splice(idx, 1);
+        saveToLocalStorage();
+        initSystem();
+        alert("कारोबार सफलतापूर्वक रद्द गरियो।");
     }
 
     function collectCustomerCredit(farmer) {
         const amount = parseFloat(prompt(`ग्राहक ${farmer} बाट प्राप्त रकम:`));
         if (!amount || amount <= 0) return;
         credits[farmer] -= amount; if(credits[farmer] <= 0) delete credits[farmer];
-        totalCash += amount; saveToLocalStorage(); initSystem();
+        totalCash += amount;
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "उधारो संकलन", party: farmer, desc: `ग्राहकबाट उधारो असुली`, amt: amount, status: "Cash" });
+        saveToLocalStorage(); initSystem();
     }
 
     function payToSupplier(supplier, index) {
@@ -636,28 +684,26 @@
         if (!amount || amount <= 0) return;
         if (source === "Cash") totalCash -= amount; else totalQR -= amount;
         supplierCredits[supplier] -= amount; if (supplierCredits[supplier] <= 0) delete supplierCredits[supplier];
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "सप्लायर भुक्तानी", party: supplier, desc: `सप्लायरको उधारो फर्स्यौट`, amt: amount, status: source });
         saveToLocalStorage(); initSystem(); alert("सप्लायर भुक्तानी सफल।");
     }
 
     function calculateDashboard() {
-        document.getElementById('dash-total-items').textContent = products.reduce((acc, p) => acc + p.qty, 0);
+        document.getElementById('dash-total-items').textContent = products.reduce((acc, p) => acc + (p.qty > 0 ? p.qty : 0), 0);
         document.getElementById('dash-total-cash').textContent = `रु ${totalCash.toLocaleString()}`;
         document.getElementById('dash-total-qr').textContent = `रु ${totalQR.toLocaleString()}`;
         document.getElementById('dash-total-credit').textContent = `रु ${Object.values(credits).reduce((acc, c) => acc + c, 0).toLocaleString()}`;
     }
 
     function updateTables() {
-        // इन्भेन्टरी तालिका
         const pBody = document.querySelector('#product-table tbody'); pBody.innerHTML = '';
         products.forEach(p => { pBody.innerHTML += `<tr><td>${p.name}</td><td>${p.category}</td><td>${p.qty}</td><td>रु ${p.cost}</td><td>रु ${p.price}</td><td>${p.expiry || '-'}</td></tr>`; });
 
-        // ग्राहक उधारो
         const cBody = document.querySelector('#credit-table tbody'); cBody.innerHTML = '';
         Object.keys(credits).forEach(farmer => {
             cBody.innerHTML += `<tr><td>${farmer}</td><td class="text-red">रु ${credits[farmer]}</td><td><button onclick="collectCustomerCredit('${farmer}')">💰 संकलन</button></td></tr>`;
         });
 
-        // सप्लायर उधारो
         const sBody = document.querySelector('#supplier-ledger-table tbody'); sBody.innerHTML = ''; let sIdx = 1;
         Object.keys(supplierCredits).forEach(sup => {
             let bankInfo = supplierProfiles[sup] ? supplierProfiles[sup].bank : '-';
@@ -665,29 +711,27 @@
             sIdx++;
         });
 
-        // बिक्री इतिहास तालिका (A4 बिल प्रिन्ट बटन सहित)
         const srBody = document.querySelector('#sales-report-table tbody'); srBody.innerHTML = '';
-        salesReport.forEach(r => {
-            srBody.innerHTML += `<tr>
-                <td>${r.timestamp}</td><td>${r.farmer}</td><td>${r.name}</td><td>${r.qty}</td><td>रु ${r.total}</td><td>${r.mode}</td>
-                <td><button class="btn-invoice" onclick="printA4Invoice('ग्राहक बिक्री (Sales)', '${r.farmer}', '${r.timestamp}', '${r.mode}', '${r.name}', ${r.qty}, ${r.total})">🖨️ A4 प्रिन्ट</button></td>
-            </tr>`;
-        });
+        salesReport.forEach(r => { srBody.innerHTML += `<tr><td>${r.timestamp}</td><td>${r.farmer}</td><td>${r.name}</td><td>${r.qty}</td><td>रु ${r.total}</td><td>${r.mode}</td></tr>`; });
 
-        // खरिद इतिहास तालिका (A4 बिल प्रिन्ट बटन सहित)
         const prBody = document.querySelector('#purchase-report-table tbody'); prBody.innerHTML = '';
-        purchaseReport.forEach(r => {
-            srBody.innerHTML += `<tr>
-                <td>${r.timestamp}</td><td>${r.supplier}</td><td>${r.name}</td><td>${r.category}</td><td>${r.qty}</td><td>रु ${r.cost}</td><td>${r.mode}</td>
-                <td><button class="btn-invoice" style="background-color:#16a085;" onclick="printA4Invoice('सामान खरिद (Purchase)', '${r.supplier}', '${r.timestamp}', '${r.mode}', '${r.name}', ${r.qty}, (${r.qty}*${r.cost}))">🖨️ A4 प्रिन्ट</button></td>
-            </tr>`;
+        purchaseReport.forEach(r => { prBody.innerHTML += `<tr><td>${r.timestamp}</td><td>${r.supplier}</td><td>${r.name}</td><td>${r.category}</td><td>${r.qty}</td><td>रु ${r.cost}</td><td>${r.mode}</td></tr>`; });
+
+        // एकीकृत मास्टर तालिका (प्रिन्ट र डिलिट एक्सन बटन सहित)
+        const msBody = document.querySelector('#master-statement-table tbody'); msBody.innerHTML = '';
+        masterStatement.forEach(m => { 
+            let printBtn = (m.type === "बिल बिक्री" || m.type === "खरिद दाखिला") ? 
+                `<button class="btn-invoice" onclick="printA4Invoice('${m.type}', '${m.party}', '${m.timestamp}', '${m.status}', '${m.itemName}', ${m.itemQty}, ${m.amt})">🖨️ बिल</button>` : '';
+            
+            msBody.innerHTML += `<tr>
+                <td>${m.timestamp}</td><td>${m.type}</td><td>${m.party}</td><td>${m.desc}</td><td>रु ${m.amt}</td><td>${m.status}</td>
+                <td>
+                    ${printBtn}
+                    <button class="btn-delete" onclick="deleteTransaction(${m.id})">❌ हटाउने</button>
+                </td>
+            </tr>`; 
         });
 
-        // मास्टर स्टेटमेन्ट
-        const msBody = document.querySelector('#master-statement-table tbody'); msBody.innerHTML = '';
-        masterStatement.forEach(m => { msBody.innerHTML += `<tr><td>${m.timestamp}</td><td>${m.type}</td><td>${m.party}</td><td>${m.desc}</td><td>रु ${m.amt}</td><td>${m.status}</td></tr>`; });
-
-        // नाफा नोक्सान
         let totalSalesVal = salesReport.reduce((acc, s) => acc + s.total, 0);
         let totalCostVal = salesReport.reduce((acc, s) => {
             let matched = purchaseReport.find(p => p.name.toLowerCase() === s.name.toLowerCase());
