@@ -24,6 +24,8 @@
         .card-green { background: #27ae60; }
         .card-purple { background: #9b59b6; }
         .card-red { background: #e74c3c; }
+        .card-orange { background: #e67e22; }
+        .card-teal { background: #16a085; }
         .dash-card h3 { margin: 0; font-size: 14px; }
         .dash-card p { margin: 10px 0 0 0; font-size: 22px; font-weight: bold; }
         label { font-weight: bold; display: block; margin-top: 15px; color: #34495e; }
@@ -35,39 +37,41 @@
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #2c3e50; color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
-        .alert { background-color: #ffdddd; border-left: 6px solid #f44336; padding: 12px; margin-top: 15px; border-radius: 4px; }
         .action-box { display: flex; gap: 15px; margin-bottom: 30px; background: #eef2f3; padding: 15px; border-radius: 6px; flex-wrap: wrap; }
-        .text-green { color: #27ae60; font-weight: bold; }
-        .text-red { color: #c0392b; font-weight: bold; }
         .ledger-box { background: #fdfefe; border: 1px solid #d6dbdf; padding: 20px; border-radius: 6px; margin-bottom: 30px; position: relative; }
         .pn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
         .pn-card { padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; border: 1px solid #ccc; }
         
         .report-header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd; padding-bottom: 8px; margin-bottom: 15px; }
-        .report-header-box h3 { margin: 0; }
-        .action-btns { display: flex; gap: 8px; }
+        .action-btns { display: flex; gap: 8px; align-items: center; }
         .btn-download { background-color: #1f7246; color: white; border: none; padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 13px; }
-        .btn-download:hover { background-color: #154d2f; }
-        .btn-invoice { background-color: #d35400; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
-        .btn-invoice:hover { background-color: #ba4a00; }
-        .btn-delete { background-color: #e74c3c; color: white; border: none; padding: 4px 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
-        .btn-delete:hover { background-color: #c0392b; }
+        .date-filter-input { padding: 5px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
 
-        /* 🖨️ प्रिन्ट गर्दा ए४ साइजमा बिल मात्र चिटिक्क देखाउने संरचना */
+        /* पुराना बिल र डिलिट बटन */
+        .btn-invoice { background-color: #3498db; color: white; padding: 5px 8px; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; }
+        .btn-delete { background-color: #e74c3c; color: white; padding: 5px 8px; border: none; border-radius: 3px; cursor: pointer; font-size: 12px; }
+
+        /* सेटिङ्ग भित्रको दुई कोलम लेआउट */
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+
         #print-invoice-area { display: none; }
         
         @media print {
             body { background-color: white; color: black; font-size: 14px; }
             #main-system, #login-screen { display: none !important; }
             #print-invoice-area { display: block !important; padding: 20px; width: 100%; box-sizing: border-box; }
-            .invoice-title { text-align: center; margin-bottom: 5px; font-size: 26px; font-weight: bold; text-transform: uppercase; }
-            .invoice-subtitle { text-align: center; margin-bottom: 25px; font-size: 14px; color: #444; border-bottom: 2px double #000; padding-bottom: 10px; }
+            .invoice-title { text-align: center; margin-bottom: 2px; font-size: 28px; font-weight: bold; text-transform: uppercase; }
+            .invoice-subtitle { text-align: center; margin-bottom: 20px; font-size: 14px; color: #333; border-bottom: 2px double #000; padding-bottom: 10px; line-height: 1.5; }
             .invoice-meta { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
             .invoice-table { width: 100% !important; border-collapse: collapse !important; margin-top: 15px; }
             .invoice-table th, .invoice-table td { border: 1px solid #000 !important; padding: 12px !important; text-align: left; }
-            .invoice-table th { background-color: #f2f2f2 !important; color: black !important; }
-            .invoice-footer { margin-top: 60px; display: flex; justify-content: space-between; text-align: center; }
-            .signature-line { border-top: 1px dashed #000; width: 180px; margin-top: 40px; }
+            /* बिलको थिम कलर सेटिङ्गबाट लागु हुने थ्रि-प्रिन्ट सीएसएस */
+            .invoice-table th { background-color: #2c3e50 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .invoice-footer { margin-top: 50px; display: flex; justify-content: space-between; align-items: flex-end; }
+            .sig-container { text-align: center; position: relative; width: 200px; }
+            .stamp-img { position: absolute; bottom: 35px; left: 40px; width: 110px; height: 110px; object-fit: contain; opacity: 0.85; z-index: -1; }
+            .sig-img { width: 150px; height: 60px; object-fit: contain; display: block; margin: 0 auto; }
+            .signature-line { border-top: 1px dashed #000; width: 100%; margin-top: 5px; }
             @page { size: A4; margin: 20mm; }
         }
     </style>
@@ -76,7 +80,7 @@
 
 <!-- १. युजरनेम र पासवर्ड लगइन स्क्रिन -->
 <div id="login-screen">
-    <h2>🏔️ शेर्पा सप्लायर्स</h2>
+    <h2 id="login-shop-name">🏔️ शेर्पा सप्लायर्स</h2>
     <p style="color: #7f8c8d; font-size: 14px;">प्रणाली चलाउन युजरनेम र पासवर्ड राख्नुहोस्</p>
     
     <div style="margin-top: 20px; text-align: left;">
@@ -87,24 +91,20 @@
         <input type="password" id="login-password" placeholder="पासवर्ड टाइप गर्नुहोस्" style="font-size: 16px; letter-spacing: 1px;">
         
         <button type="button" class="btn" onclick="checkSystemLogin()" style="background-color: #2c3e50; margin-top: 25px;">🔐 प्रणाली भित्र जानुहोस्</button>
-        
-        <div style="color: #95a5a6; font-size: 12px; margin-top: 20px; text-align: center; line-height: 1.4;">
-            युजरनेम: <b>sherpa</b><br>
-            पासवर्ड: <b>sherpa123</b>
-        </div>
     </div>
 </div>
 
 <!-- २. मुख्य सफ्टवेयर प्रणाली -->
 <div id="main-system">
     <div class="sidebar">
-        <h2>शेर्पा सप्लायर्स</h2>
+        <h2 id="side-shop-name">शेर्पा सप्लायर्स</h2>
         <button class="tab-btn active" onclick="switchTab('tab-dashboard')">📊 ड्यासबोर्ड (Dashboard)</button>
         <button class="tab-btn" onclick="switchTab('tab-cashbank')">💰 नगद तथा बैंक खाता (Cash/Bank)</button>
         <button class="tab-btn" onclick="switchTab('tab-purchase')">📦 खरिद प्रविष्टि (Purchase)</button>
         <button class="tab-btn" onclick="switchTab('tab-sales')">🛒 बिक्री काउन्टर (POS Sales)</button>
         <button class="tab-btn" onclick="switchTab('tab-ledger')">👥 उधारो खाता (Ledger)</button>
         <button class="tab-btn" onclick="switchTab('tab-reports')">📋 सबै स्टेटमेन्ट/रिपोर्ट (Reports)</button>
+        <button class="tab-btn" onclick="switchTab('tab-settings')">⚙️ प्रणाली सेटिङ्ग (Settings)</button>
         <button class="logout-btn" onclick="logout()">🔒 लगआउट (Log Out)</button>
     </div>
 
@@ -133,55 +133,47 @@
                     </div>
                 </div>
 
-                <h3>⚠️ म्याद नाघ्ने सम्बन्धि चेतावनी अलर्ट (Expiry Warning)</h3>
-                <div id="expiry-alerts"></div>
+                <div class="dashboard-grid">
+                    <div class="dash-card card-teal">
+                        <h3>आजको बिक्री (Today's Sales)</h3>
+                        <p id="dash-today-sales">रु ०</p>
+                    </div>
+                    <div class="dash-card card-orange">
+                        <h3>आजको खरिद (Today's Purchase)</h3>
+                        <p id="dash-today-purchase">रु ०</p>
+                    </div>
+                    <div class="dash-card card-teal" style="background-color: #27ae60;">
+                        <h3>यो महिनाको बिक्री (Monthly Sales)</h3>
+                        <p id="dash-month-sales">रु ०</p>
+                    </div>
+                    <div class="dash-card card-orange" style="background-color: #d35400;">
+                        <h3>यो महिनाको खरिद (Monthly Purchase)</h3>
+                        <p id="dash-month-purchase">रु ०</p>
+                    </div>
+                </div>
             </div>
 
             <!-- ट्याब २: नगद तथा बैंक खाता व्यवस्थापन -->
             <div id="tab-cashbank" class="tab-content">
-                <h2>💰 नगद तथा बैंक खाता व्यवस्थापन (Cash/Bank Controls)</h2>
-                <div class="action-box" style="margin-top: 20px;">
+                <h2>💰 नगद तथा बैंक खाता व्यवस्थापन</h2>
+                <div class="action-box">
                     <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #27ae60;">
                         <h4>➕ मौज्दात थप्नुहोस् (Deposit)</h4>
                         <label>खाता छान्नुहोस्:</label>
-                        <select id="dep-account">
-                            <option value="Cash">नगद (Cash Counter)</option>
-                            <option value="QR">बैंक (Bank QR)</option>
-                        </select>
+                        <select id="dep-account"><option value="Cash">नगद</option><option value="QR">बैंक (QR)</option></select>
                         <label>थप्ने रकम (रु):</label>
-                        <input type="number" id="dep-amount" min="1" placeholder="रकम लेख्नुहोस्">
-                        <button type="button" class="btn" onclick="quickDeposit()" style="margin-top:10px;">खातामा रकम थप्नुहोस्</button>
+                        <input type="number" id="dep-amount" placeholder="रकम">
+                        <button type="button" class="btn" onclick="quickDeposit()">जम्मा गर्नुहोस्</button>
                     </div>
-
                     <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #e74c3c;">
-                        <h4>➖ बैंक/नगद घटाउनुहोस् (Withdraw)</h4>
-                        <label>कुन खाताबाट घटाउने?:</label>
-                        <select id="wit-account">
-                            <option value="QR">बैंक खाता (Bank QR)</option>
-                            <option value="Cash">नगद खाता (Cash Counter)</option>
-                        </select>
+                        <h4>➖ मौज्दात घटाउनुहोस् (Withdraw)</h4>
+                        <label>खाता छान्नुहोस्:</label>
+                        <select id="wit-account"><option value="QR">बैंक (QR)</option><option value="Cash">नगद</option></select>
                         <label>घटाउने रकम (रु):</label>
-                        <input type="number" id="wit-amount" min="1" placeholder="घटाउने रकम लेख्नुहोस्">
-                        <label>कारण / विवरण:</label>
-                        <input type="text" id="wit-reason" placeholder="खर्चको शीर्षक">
-                        <button type="button" class="btn" onclick="quickWithdraw()" style="margin-top:10px; background-color: #e74c3c;">खाताबाट रकम घटाउने</button>
-                    </div>
-
-                    <div style="flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 6px; border-top: 3px solid #3498db;">
-                        <h4>🔄 रकम ट्रान्सफर (Internal Transfer)</h4>
-                        <label>कहाँबाट (From):</label>
-                        <select id="trans-from">
-                            <option value="Cash">नगद (Cash Counter)</option>
-                            <option value="QR">बैंक (Bank QR)</option>
-                        </select>
-                        <label>कहाँ (To):</label>
-                        <select id="trans-to">
-                            <option value="QR">बैंक (Bank QR)</option>
-                            <option value="Cash">नगद (Cash Counter)</option>
-                        </select>
-                        <label>ट्रान्सफर रकम (रु):</label>
-                        <input type="number" id="trans-amount" min="1" placeholder="रकम लेख्नुहोस्">
-                        <button type="button" class="btn" onclick="quickTransfer()" style="margin-top:10px; background-color: #3498db;">रकम ट्रान्सफर गर्ने</button>
+                        <input type="number" id="wit-amount" placeholder="रकम">
+                        <label>विवरण / खर्च शीर्षक:</label>
+                        <input type="text" id="wit-reason" placeholder="खर्च शीर्षक">
+                        <button type="button" class="btn" onclick="quickWithdraw()" style="background-color: #e74c3c;">घटाउनुहोस्</button>
                     </div>
                 </div>
             </div>
@@ -192,57 +184,27 @@
                 <div style="max-width: 600px; margin: auto;">
                     <form id="product-form">
                         <label>सप्लायर/पार्टी (Supplier Name):</label>
-                        <input type="text" id="p-supplier" list="supplier-list" placeholder="पार्टी/फर्मको नाम" required onchange="fillSupplierBank()">
+                        <input type="text" id="p-supplier" list="supplier-list" placeholder="पार्टी/फर्मको नाम" required>
                         <datalist id="supplier-list"></datalist>
-
-                        <label>सप्लायरको बैंक खाता विवरण:</label>
-                        <input type="text" id="p-supplier-bank" placeholder="ग्लोबल आईएमई बैंक - खाता नं...">
-
                         <label>सामानको नाम:</label>
                         <input type="text" id="p-name" placeholder="सामानको पुरा नाम" required>
-
                         <label>सामानको वर्ग (Category):</label>
-                        <select id="p-category">
-                            <option value="Grocery">किराणा (Grocery)</option>
-                            <option value="Electronics">इलेक्ट्रोनिक्स (Electronics)</option>
-                            <option value="Clothing">कपडा (Clothing)</option>
-                            <option value="Hardware">हार्डवेयर (Hardware)</option>
-                            <option value="General">अन्य सामान (General)</option>
-                        </select>
-
+                        <select id="p-category"><option value="Grocery">किराणा</option><option value="General">अन्य सामान</option></select>
                         <label>खरिद परिमाण (Quantity):</label>
                         <input type="number" id="p-qty" min="1" required>
-
                         <label>खरिद मूल्य (प्रति इकाई लागत):</label>
                         <input type="number" id="p-cost" min="1" required>
-
                         <label>बिक्री मूल्य प्रति इकाई (रु):</label>
                         <input type="number" id="p-price" min="1" required>
-                        
-                        <label>खरिद भुक्तानी विधि (Purchase Mode):</label>
-                        <select id="p-mode">
-                            <option value="Cash">नगद भुक्तानी (Cash)</option>
-                            <option value="QR">बैंक भुक्तानी (Bank QR)</option>
-                            <option value="Credit">उधारो खरिद (Supplier Credit)</option>
-                        </select>
-
-                        <label>म्याद सकिने मिति (Expiry Date):</label>
-                        <input type="date" id="p-expiry">
+                        <label>खरिद भुक्तानी विधि:</label>
+                        <select id="p-mode"><option value="Cash">नगद</option><option value="QR">बैंक क्युआर</option><option value="Credit">उधारो खरिद</option></select>
                         <button type="button" class="btn" onclick="addProduct()">स्टकमा दाखिला गर्नुहोस्</button>
                     </form>
                 </div>
-                
-                <div class="ledger-box" style="margin-top: 40px;">
-                    <div class="report-header-box">
-                        <h3>📋 हाल गोदाममा उपलब्ध सामानहरूको मौज्दात सूची</h3>
-                    </div>
-                    <table id="product-table">
-                        <thead>
-                            <tr><th>सामानको नाम</th><th>वर्ग</th><th>उपलब्ध स्टक</th><th>लागत मूल्य</th><th>बिक्री मूल्य</th><th>म्याद सकिने मिति</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                <table id="product-table" style="margin-top: 30px;">
+                    <thead><tr><th>सामानको नाम</th><th>वर्ग</th><th>स्टक परिमाण</th><th>लागत मूल्य</th><th>बिक्री मूल्य</th></tr></thead>
+                    <tbody></tbody>
+                </table>
             </div>
 
             <!-- ट्याब ४: बिक्री काउन्टर -->
@@ -252,31 +214,13 @@
                     <form id="sale-form">
                         <label>ग्राहकको नाम:</label>
                         <input type="text" id="s-farmer" placeholder="ग्राहकको नाम" required>
-                        
                         <label>सामान छनोट गर्नुहोस्:</label>
                         <select id="s-product" onchange="updateAvailableQty()"></select>
                         <span id="available-qty" style="color: #27ae60; font-weight: bold; font-size: 13px; display: block; margin-top: 5px;"></span>
-                        
                         <label>बिक्री परिमाण:</label>
                         <input type="number" id="s-qty" min="1" required>
-                        
-                        <label>भुक्तानी विधि (Payment Mode):</label>
-                        <select id="s-mode" onchange="toggleBankSelect()">
-                            <option value="Cash">नगद भुक्तानी (Cash)</option>
-                            <option value="QR">क्युआर भुक्तानी (QR Code)</option>
-                            <option value="Credit">उधारो खाता (Credit)</option>
-                        </select>
-
-                        <div id="bank-select-container" style="display: none;">
-                            <label>प्राप्त भएको बैंक खाता (QR Bank):</label>
-                            <select id="s-bank">
-                                <option value="Global IME Bank">Global IME Bank</option>
-                                <option value="Nabil Bank">Nabil Bank</option>
-                                <option value="NIC Asia Bank">NIC Asia Bank</option>
-                                <option value="Esewa / Khalti">Esewa / Khalti Wallet</option>
-                            </select>
-                        </div>
-                        
+                        <label>भुक्तानी विधि:</label>
+                        <select id="s-mode"><option value="Cash">नगद भुक्तानी</option><option value="QR">क्युआर भुक्तानी</option><option value="Credit">उधारो</option></select>
                         <button type="button" class="btn" style="background-color: #3498db;" onclick="processSale()">🛒 बिक्री सुरक्षित गरी बिल प्रिन्ट गर्नुहोस्</button>
                     </form>
                 </div>
@@ -284,82 +228,96 @@
 
             <!-- ट्याब ५: उधारो खाता -->
             <div id="tab-ledger" class="tab-content">
-                <h2>👥 दुईतर्फी उधारो र भुक्तानी बहीखाता (Ledgers)</h2>
+                <h2>👥 उधारो र भुक्तानी बहीखाता</h2>
                 <div class="ledger-box">
                     <h3>🛒 ग्राहक उधारो बहीखाता</h3>
-                    <table id="credit-table">
-                        <thead>
-                            <tr><th>ग्राहकको नाम</th><th>बाँकी उधारो रकम</th><th>कार्य</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-                <div class="ledger-box" style="border-top: 4px solid #e67e22;">
-                    <h3>🏢 सप्लायर उधारो र भुक्तानी (Party Payment Counter)</h3>
-                    <table id="supplier-ledger-table">
-                        <thead>
-                            <tr><th>पार्टी/सप्लायरको नाम</th><th>बैंक विवरण</th><th>तिर्न बाँकी रकम</th><th>पेमेन्ट रकम (रु)</th><th>भुक्तानी मुहान</th><th>कार्य</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <table id="credit-table"><thead><tr><th>ग्राहकको नाम</th><th>बाँकी उधारो रकम</th><th>कार्य</th></tr></thead><tbody></tbody></table>
                 </div>
             </div>
 
             <!-- ट्याब ६: रिपोर्ट तथा स्टेटमेन्ट -->
             <div id="tab-reports" class="tab-content">
                 <h2>📋 विस्तृत आर्थिक बहीखाता तथा स्टेटमेन्टहरू</h2>
-                
-                <!-- नाफा नोक्सान -->
                 <div class="ledger-box" style="border-top: 4px solid #27ae60;">
-                    <h3>📊 व्यापारिक नाफा-नोक्सान रिपोर्ट (Profit & Loss)</h3>
+                    <div class="report-header-box">
+                        <h3>📊 नाफा-नोक्सान रिपोर्ट</h3>
+                        <input type="month" id="pl-month-filter" class="date-filter-input" onchange="calculateProfitLoss()">
+                    </div>
                     <div class="pn-grid">
-                        <div class="pn-card" style="background: #ebf5fb; color: #2980b9;">कुल बिक्री<br><span id="pl-total-sales">रु ०</span></div>
-                        <div class="pn-card" style="background: #fef9e7; color: #d35400;">सामानको लागत मूल्य<br><span id="pl-total-cost">रु ०</span></div>
-                        <div class="pn-card" id="pl-profit-box" style="background: #e8f8f5; color: #117a65;">खुद नाफा<br><span id="pl-net-profit">रु ०</span></div>
+                        <div class="pn-card" style="background: #ebf5fb;">कुल बिक्री<br><span id="pl-total-sales">रु ०</span></div>
+                        <div class="pn-card" style="background: #fef9e7;">लागत मूल्य<br><span id="pl-total-cost">रु ०</span></div>
+                        <div class="pn-card" id="pl-profit-box" style="background: #e8f8f5;">खुद नाफा<br><span id="pl-net-profit">रु ०</span></div>
                     </div>
                 </div>
 
-                <!-- एकीकृत मास्टर स्टेटमेन्ट - जहाँबाट कारोबार हटाउन र पुरानो बिल प्रिन्ट गर्न मिल्छ -->
+                <div class="ledger-box" style="border-top: 4px solid #3498db;">
+                    <div class="report-header-box">
+                        <h3>🛒 सामान बिक्रीको इतिहास (Sales Report)</h3>
+                        <button class="btn-download" onclick="downloadExcel('sales-report-table', 'बिक्री_रिपोर्ट')">📥 Excel</button>
+                    </div>
+                    <table id="sales-report-table"><thead><tr><th>मिति/समय</th><th>ग्राहक</th><th>सामान</th><th>परिमाण</th><th>कुल रकम</th><th>विधि</th></tr></thead><tbody></tbody></table>
+                </div>
+
                 <div class="ledger-box" style="border-top: 4px solid #2980b9;">
-                    <div class="report-header-box">
-                        <h3>📜 एकीकृत मास्टर स्टेटमेन्ट (कारोबार रद्द/डिलिट मेनु)</h3>
-                        <div class="action-btns">
-                            <button class="btn-download" onclick="downloadExcel('master-statement-table', 'मास्टर_स्टेटमेन्ट')">📥 Excel</button>
+                    <h3>📜 एकीकृत मास्टर स्टेटमेन्ट</h3>
+                    <table id="master-statement-table"><thead><tr><th>मिति/समय</th><th>प्रकार</th><th>विवरण</th><th>रकम</th><th>विधि</th><th>कार्यहरू</th></tr></thead><tbody></tbody></table>
+                </div>
+            </div>
+
+            <!-- ट्याब ७: नयाँ प्रणाली सेटिङ्ग (थपिएको कोलम) -->
+            <div id="tab-settings" class="tab-content">
+                <h2>⚙️ प्रणाली तथा इन्वोइस (Invoice) सेटिङ्गहरू</h2>
+                <div class="ledger-box" style="border-top: 4px solid #9b59b6;">
+                    <div class="settings-grid">
+                        
+                        <!-- बायाँ भाग: पसलको विवरण र बिल सेटिङ्ग -->
+                        <div>
+                            <h3>🏢 पसल तथा इन्वोइस विवरण</h3>
+                            
+                            <label>फर्म/पसलको नाम (Shop Name):</label>
+                            <input type="text" id="cfg-shop-name">
+                            
+                            <label>प्यान / भ्याट नं (PAN / VAT No.):</label>
+                            <input type="text" id="cfg-pan" placeholder="९ अंकको प्यान नम्बर राख्नुहोस्">
+                            
+                            <label>ठेगाना (Address):</label>
+                            <input type="text" id="cfg-address">
+                            
+                            <label>फोन नं (Phone No.):</label>
+                            <input type="text" id="cfg-phone">
+                            
+                            <label>बिलको मुख्य थिम कलर (Invoice Header Color):</label>
+                            <select id="cfg-color">
+                                <option value="#2c3e50">गाढा नीलो (Dark Navy)</option>
+                                <option value="#1e3799">रोयल नीलो (Royal Blue)</option>
+                                <option value="#27ae60">हरियो (Forest Green)</option>
+                                <option value="#b71540">रातो (Crimson Red)</option>
+                                <option value="#111111">कालो (Classic Black)</option>
+                            </select>
                         </div>
-                    </div>
-                    <table id="master-statement-table">
-                        <thead>
-                            <tr><th>मिति/समय</th><th>प्रकार</th><th>व्यक्ति/पार्टी</th><th>विवरण</th><th>कारोबार रकम</th><th>विधि</th><th>कार्यहरू</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                        
+                        <!-- दायाँ भाग: लगइन र छाप/हस्ताक्षर अपलोड -->
+                        <div>
+                            <h3>🔐 सुरक्षा र छाप / हस्ताक्षर अपलोड</h3>
+                            
+                            <label>नयाँ लगइन युजरनेम (Username):</label>
+                            <input type="text" id="cfg-username">
+                            
+                            <label>नयाँ लगइन पासवर्ड (Password):</label>
+                            <input type="password" id="cfg-password">
+                            
+                            <label style="margin-top: 25px; color: #d35400;"> stamp पसलको आधिकारिक छाप (Upload Stamp Image):</label>
+                            <input type="file" id="cfg-stamp-file" accept="image/*" onchange="encodeImageFile(this, 'stamp')">
+                            <div style="margin-top: 5px;"><img id="preview-stamp" src="" style="max-height: 70px; display:none; border:1px solid #ccc;"></div>
 
-                <!-- सामान बिक्री इतिहास -->
-                <div class="ledger-box">
-                    <div class="report-header-box">
-                        <h3 style="color: #2c3e50;">🛒 सामान बिक्रीको इतिहास (Sales Report)</h3>
-                    </div>
-                    <table id="sales-report-table">
-                        <thead>
-                            <tr><th>मिति/समय</th><th>ग्राहकको नाम</th><th>सामानको नाम</th><th>परिमाण</th><th>कुल रकम (रु)</th><th>भुक्तानी प्रकार</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                            <label style="margin-top: 15px; color: #2980b9;">✒️ डिजिटल हस्ताक्षर (Upload Authorized Signature):</label>
+                            <input type="file" id="cfg-sig-file" accept="image/*" onchange="encodeImageFile(this, 'signature')">
+                            <div style="margin-top: 5px;"><img id="preview-sig" src="" style="max-height: 40px; display:none; border:1px solid #ccc;"></div>
+                        </div>
 
-                <!-- सामान खरिद इतिहास -->
-                <div class="ledger-box" style="border-top: 2px solid #e67e22;">
-                    <div class="report-header-box">
-                        <h3 style="color: #e67e22;">📦 सामान खरिद भएको इतिहास (Purchase Report)</h3>
                     </div>
-                    <table id="purchase-report-table">
-                        <thead>
-                            <tr><th>मिति/समय</th><th>सप्लायर/पार्टी</th><th>सामानको नाम</th><th>वर्ग</th><th>परिमाण</th><th>लागत मूल्य (रु)</th><th>खरिद विधि</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    
+                    <button type="button" class="btn" style="background-color: #9b59b6; margin-top: 30px;" onclick="saveSystemSettings()">💾 सबै सेटिङ्गहरू सुरक्षित गर्नुहोस्</button>
                 </div>
             </div>
 
@@ -367,15 +325,19 @@
     </div>
 </div>
 
-<!-- ३. प्रिन्ट लेआउट क्षेत्र (A4 बिल संरचना) -->
+<!-- ३. प्रिन्ट लेआउट क्षेत्र (A4 बिल संरचना - सेटिङ्ग अनुसार डाइनामिक हुने) -->
 <div id="print-invoice-area">
-    <div class="invoice-title">🏔️ शेर्पा सप्लायर्स</div>
-    <div class="invoice-subtitle">मदी नगरपालिका-१, चौकी बजार, संखुवासभा | फोन: ९XXXXXXXXX<br><b>कारोबार बिल (INVOICE)</b></div>
+    <div class="invoice-title" id="inv-shop-name">शेर्पा सप्लायर्स</div>
+    <div class="invoice-subtitle">
+        <span id="inv-shop-address">मदी नगरपालिका-१, चौकी बजार, संखुवासभा</span> | फोन: <span id="inv-shop-phone">-</span><br>
+        <strong>प्यान / भ्याट नं: <span id="inv-shop-pan">-</span></strong><br>
+        <b style="font-size: 15px; display:inline-block; margin-top:5px;">कारोबार बिल (INVOICE)</b>
+    </div>
     
     <div class="invoice-meta">
         <div>
             <strong>कारोबार प्रकार:</strong> <span id="inv-type">-</span><br>
-            <strong>संलग्न पार्टी/ग्राहक:</strong> <span id="inv-party">-</span>
+            <strong>संलग्न ग्राहक:</strong> <span id="inv-party">-</span>
         </div>
         <div style="text-align: right;">
             <strong>बिल मिति:</strong> <span id="inv-date">-</span><br>
@@ -385,21 +347,13 @@
 
     <table class="invoice-table">
         <thead>
-            <tr>
-                <th>क्र.सं.</th>
-                <th>सामान / विवरण</th>
-                <th>परिमाण (Qty)</th>
-                <th>इकाई दर मूल्य (Rate)</th>
-                <th>कुल जम्मा रकम (Total)</th>
+            <tr id="inv-table-header">
+                <th>क्र.सं.</th><th>सामान / विवरण</th><th>परिमाण (Qty)</th><th>दर मूल्य (Rate)</th><th>जम्मा रकम (Total)</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>१</td>
-                <td id="inv-item-name">-</td>
-                <td id="inv-item-qty">-</td>
-                <td id="inv-item-rate">-</td>
-                <td id="inv-item-total" style="font-weight: bold;">-</td>
+                <td>१</td><td id="inv-item-name">-</td><td id="inv-item-qty">-</td><td id="inv-item-rate">-</td><td id="inv-item-total" style="font-weight: bold;">-</td>
             </tr>
             <tr>
                 <td colspan="4" style="text-align: right; font-weight: bold;">कूल रकम (Grand Total):</td>
@@ -410,10 +364,13 @@
 
     <div class="invoice-footer">
         <div>
-            <div class="signature-line"></div>
-            <p>सामान प्राप्त गर्नेको सही</p>
+            <p style="font-size:12px;">धन्यवाद, पुनः आउनुहोला।</p>
         </div>
-        <div>
+        <!-- छाप र हस्ताक्षर कोलम -->
+        <div class="sig-container">
+            <!-- छाप ब्याकग्राउन्डमा र हस्ताक्षर माथि बस्ने मिलाइएको छ -->
+            <img id="inv-stamp-img" class="stamp-img" src="" alt="">
+            <img id="inv-sig-img" class="sig-img" src="" alt="">
             <div class="signature-line"></div>
             <p>अधिकृत हस्ताक्षरकर्ता</p>
         </div>
@@ -421,19 +378,54 @@
 </div>
 
 <script>
-    const USER_NAME = "sherpa";
-    const USER_PASS = "sherpa123";
+    // डिफल्ट कन्फिगरेसन सेटिङ्ग
+    let sysConfig = {
+        username: "sherpa",
+        password: "sherpa123",
+        shopName: "शेर्पा सप्लायर्स",
+        pan: "601234567",
+        address: "मदी नगरपालिका-१, चौकी बजार, संखुवासभा",
+        phone: "98XXXXXXXX",
+        themeColor: "#2c3e50",
+        stampData: "",
+        sigData: ""
+    };
+
+    function loadSettings() {
+        let savedConfig = JSON.parse(localStorage.getItem('sys_config_v13'));
+        if(savedConfig) { sysConfig = savedConfig; }
+        
+        // ड्यासबोर्ड र लगइनमा नाम राख्ने
+        document.getElementById('login-shop-name').innerText = "🏔️ " + sysConfig.shopName;
+        document.getElementById('side-shop-name').innerText = sysConfig.shopName;
+
+        // सेटिङ्ग मेनुका फर्म फिल्डहरू भर्ने
+        document.getElementById('cfg-shop-name').value = sysConfig.shopName;
+        document.getElementById('cfg-pan').value = sysConfig.pan;
+        document.getElementById('cfg-address').value = sysConfig.address;
+        document.getElementById('cfg-phone').value = sysConfig.phone;
+        document.getElementById('cfg-color').value = sysConfig.themeColor;
+        document.getElementById('cfg-username').value = sysConfig.username;
+        document.getElementById('cfg-password').value = sysConfig.password;
+
+        if(sysConfig.stampData) {
+            document.getElementById('preview-stamp').src = sysConfig.stampData;
+            document.getElementById('preview-stamp').style.display = 'block';
+        }
+        if(sysConfig.sigData) {
+            document.getElementById('preview-sig').src = sysConfig.sigData;
+            document.getElementById('preview-sig').style.display = 'block';
+        }
+    }
 
     function checkSystemLogin() {
         const uInput = document.getElementById('login-username').value.trim();
         const pInput = document.getElementById('login-password').value;
-        if(uInput === USER_NAME && pInput === USER_PASS) {
+        if(uInput === sysConfig.username && pInput === sysConfig.password) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-system').style.display = 'block';
             initSystem();
-        } else {
-            alert("⚠️ गलत युजरनेम वा पासवर्ड!");
-        }
+        } else { alert("⚠️ गलत युजरनेम वा पासवर्ड!"); }
     }
 
     function logout() {
@@ -443,6 +435,38 @@
         document.getElementById('main-system').style.display = 'none';
     }
 
+    // तस्बिरलाई Base64 स्ट्रिङमा कन्भर्ट गरेर ब्राउजरमै सेभ गर्ने फङ्सन
+    function encodeImageFile(element, target) {
+        let file = element.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function() {
+            if(target === 'stamp') {
+                sysConfig.stampData = reader.result;
+                document.getElementById('preview-stamp').src = reader.result;
+                document.getElementById('preview-stamp').style.display = 'block';
+            } else if(target === 'signature') {
+                sysConfig.sigData = reader.result;
+                document.getElementById('preview-sig').src = reader.result;
+                document.getElementById('preview-sig').style.display = 'block';
+            }
+        }
+        if (file) { reader.readAsDataURL(file); }
+    }
+
+    function saveSystemSettings() {
+        sysConfig.shopName = document.getElementById('cfg-shop-name').value.trim();
+        sysConfig.pan = document.getElementById('cfg-pan').value.trim();
+        sysConfig.address = document.getElementById('cfg-address').value.trim();
+        sysConfig.phone = document.getElementById('cfg-phone').value.trim();
+        sysConfig.themeColor = document.getElementById('cfg-color').value;
+        sysConfig.username = document.getElementById('cfg-username').value.trim();
+        sysConfig.password = document.getElementById('cfg-password').value;
+
+        localStorage.setItem('sys_config_v13', JSON.stringify(sysConfig));
+        loadSettings();
+        alert("⚙️ बधाई छ! सबै सेटिङ्गहरू र डिजिटल छाप/हस्ताक्षर सुरक्षित भयो।");
+    }
+
     function downloadExcel(tableId, filename) {
         const table = document.getElementById(tableId);
         if (!table || table.rows.length <= 1) { alert("⚠️ तालिका खाली छ!"); return; }
@@ -450,28 +474,22 @@
         XLSX.writeFile(wb, `${filename}.xlsx`);
     }
 
-    function toggleBankSelect() {
-        const mode = document.getElementById('s-mode').value;
-        document.getElementById('bank-select-container').style.display = (mode === 'QR') ? 'block' : 'none';
-    }
-
-    let products, credits, supplierCredits, supplierProfiles, totalCash, totalQR, salesReport, purchaseReport, masterStatement;
+    let products, credits, totalCash, totalQR, salesReport, purchaseReport, masterStatement;
 
     function initSystem() {
         products = JSON.parse(localStorage.getItem('products_v13')) || [];
         credits = JSON.parse(localStorage.getItem('credits_v13')) || {};
-        supplierCredits = JSON.parse(localStorage.getItem('supplier_credits_v13')) || {};
-        supplierProfiles = JSON.parse(localStorage.getItem('supplier_profiles_v13')) || {};
         totalCash = parseFloat(localStorage.getItem('total_cash_v13')) || 0;
         totalQR = parseFloat(localStorage.getItem('total_qr_v13')) || 0;
         salesReport = JSON.parse(localStorage.getItem('sales_report_v13')) || [];
         purchaseReport = JSON.parse(localStorage.getItem('purchase_report_v13')) || [];
         masterStatement = JSON.parse(localStorage.getItem('master_statement_v13')) || [];
         
+        loadSettings();
         updateTables();
         calculateDashboard();
-        updateSupplierDatalist();
         updateProductSelect();
+        calculateProfitLoss();
     }
 
     function switchTab(tabId) {
@@ -479,27 +497,11 @@
         document.querySelectorAll('.sidebar button').forEach(btn => btn.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         if(event) { event.currentTarget.classList.add('active'); }
-        calculateDashboard();
-    }
-
-    function updateSupplierDatalist() {
-        const datalist = document.getElementById('supplier-list');
-        if(datalist) {
-            datalist.innerHTML = '';
-            Object.keys(supplierProfiles).forEach(sup => { datalist.innerHTML += `<option value="${sup}">`; });
-        }
-    }
-
-    function fillSupplierBank() {
-        const name = document.getElementById('p-supplier').value;
-        if(supplierProfiles[name]) { document.getElementById('p-supplier-bank').value = supplierProfiles[name].bank || ''; }
     }
 
     function saveToLocalStorage() {
         localStorage.setItem('products_v13', JSON.stringify(products));
         localStorage.setItem('credits_v13', JSON.stringify(credits));
-        localStorage.setItem('supplier_credits_v13', JSON.stringify(supplierCredits));
-        localStorage.setItem('supplier_profiles_v13', JSON.stringify(supplierProfiles));
         localStorage.setItem('total_cash_v13', totalCash);
         localStorage.setItem('total_qr_v13', totalQR);
         localStorage.setItem('sales_report_v13', JSON.stringify(salesReport));
@@ -507,240 +509,188 @@
         localStorage.setItem('master_statement_v13', JSON.stringify(masterStatement));
     }
 
-    function quickDeposit() {
-        const account = document.getElementById('dep-account').value;
-        const amount = parseFloat(document.getElementById('dep-amount').value);
-        if (!amount || amount <= 0) return;
-        if (account === "Cash") totalCash += amount; else totalQR += amount;
-        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "सिधै दाखिला", party: "सञ्चालक", desc: `खाता व्यवस्थापनबाट थप`, amt: amount, status: account });
-        saveToLocalStorage(); initSystem(); document.getElementById('dep-amount').value = ''; alert("रकम जम्मा भयो।");
+    function calculateDashboard() {
+        document.getElementById('dash-total-items').innerText = products.reduce((acc, p) => acc + p.qty, 0);
+        document.getElementById('dash-total-cash').innerText = "रु " + totalCash.toLocaleString();
+        document.getElementById('dash-total-qr').innerText = "रु " + totalQR.toLocaleString();
+        let totalCred = Object.values(credits).reduce((acc, c) => acc + c, 0);
+        document.getElementById('dash-total-credit').innerText = "रु " + totalCred.toLocaleString();
+
+        const todayStr = new Date().toLocaleDateString('en-US');
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+
+        let todaySales = 0, monthSales = 0;
+        salesReport.forEach(s => {
+            const sDate = new Date(s.id); 
+            if(sDate.toLocaleDateString('en-US') === todayStr) todaySales += s.total;
+            if(sDate.getMonth() === currentMonth && sDate.getFullYear() === currentYear) monthSales += s.total;
+        });
+
+        let todayPur = 0, monthPur = 0;
+        purchaseReport.forEach(p => {
+            const pDate = new Date(p.id);
+            if(pDate.toLocaleDateString('en-US') === todayStr) todayPur += (p.qty * p.cost);
+            if(pDate.getMonth() === currentMonth && pDate.getFullYear() === currentYear) monthPur += (p.qty * p.cost);
+        });
+
+        document.getElementById('dash-today-sales').innerText = "रु " + todaySales.toLocaleString();
+        document.getElementById('dash-today-purchase').innerText = "रु " + todayPur.toLocaleString();
+        document.getElementById('dash-month-sales').innerText = "रु " + monthSales.toLocaleString();
+        document.getElementById('dash-month-purchase').innerText = "रु " + monthPur.toLocaleString();
     }
 
-    function quickWithdraw() {
-        const account = document.getElementById('wit-account').value;
-        const amount = parseFloat(document.getElementById('wit-amount').value);
-        const reason = document.getElementById('wit-reason').value || "खर्च";
-        if (!amount || amount <= 0) return;
-        if (account === "Cash") totalCash -= amount; else totalQR -= amount;
-        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "नगद/बैंक खर्च", party: "विविध", desc: reason, amt: amount, status: account });
-        saveToLocalStorage(); initSystem(); document.getElementById('wit-amount').value = ''; alert("खर्च रेकर्ड भयो।");
-    }
-
-    function quickTransfer() {
-        const from = document.getElementById('trans-from').value; const to = document.getElementById('trans-to').value;
-        const amount = parseFloat(document.getElementById('trans-amount').value);
-        if (!amount || from === to) return;
-        if (from === "Cash") { totalCash -= amount; totalQR += amount; } else { totalQR -= amount; totalCash += amount; }
-        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "आन्तरिक रकमान्तर", party: "काउन्टर", desc: `${from} बाट ${to} मा ट्रान्सफर`, amt: amount, status: `${from}->${to}` });
-        saveToLocalStorage(); initSystem(); alert("रकमान्तर सफल।");
-    }
-
-    function addProduct() {
-        const supplier = document.getElementById('p-supplier').value.trim(); const bank = document.getElementById('p-supplier-bank').value.trim();
-        const name = document.getElementById('p-name').value.trim(); const category = document.getElementById('p-category').value;
-        const qty = parseInt(document.getElementById('p-qty').value); const cost = parseFloat(document.getElementById('p-cost').value);
-        const price = parseFloat(document.getElementById('p-price').value); const mode = document.getElementById('p-mode').value;
-        const expiry = document.getElementById('p-expiry').value; const timestamp = new Date().toLocaleString('ne-NP'); const id = Date.now();
-
-        if (!supplier || !name || !qty || !cost) return;
-        const totalCost = qty * cost;
-        supplierProfiles[supplier] = { bank: bank };
-
-        let existingProd = products.find(p => p.name.toLowerCase() === name.toLowerCase());
-        if (existingProd) { existingProd.qty += qty; existingProd.cost = cost; existingProd.price = price; } 
-        else { products.push({ name, category, qty, cost, price, expiry }); }
-
-        if (mode === "Cash") totalCash -= totalCost; else if (mode === "QR") totalQR -= totalCost; else supplierCredits[supplier] = (supplierCredits[supplier] || 0) + totalCost;
-
-        purchaseReport.push({ id, timestamp, supplier, name, category, qty, cost, mode });
-        masterStatement.unshift({ id, timestamp, type: "खरिद दाखिला", party: supplier, desc: `${name} (${qty} Qty खरिद)`, amt: totalCost, status: mode, itemName: name, itemQty: qty });
-
-        saveToLocalStorage(); initSystem(); document.getElementById('product-form').reset(); alert("सामान दाखिल भयो।");
+    function calculateProfitLoss() {
+        const filterVal = document.getElementById('pl-month-filter').value;
+        let totalSales = 0, totalCost = 0;
+        salesReport.forEach(s => {
+            const sDate = new Date(s.id);
+            const yyyymm = sDate.getFullYear() + "-" + String(sDate.getMonth() + 1).padStart(2, '0');
+            if(!filterVal || yyyymm === filterVal) {
+                totalSales += s.total;
+                const prod = products.find(p => p.name === s.productName);
+                totalCost += (s.qty * (prod ? prod.cost : 0));
+            }
+        });
+        document.getElementById('pl-total-sales').innerText = "रु " + totalSales.toLocaleString();
+        document.getElementById('pl-total-cost').innerText = "रु " + totalCost.toLocaleString();
+        document.getElementById('pl-net-profit').innerText = "रु " + (totalSales - totalCost).toLocaleString();
     }
 
     function updateProductSelect() {
         const select = document.getElementById('s-product');
         if(select) {
-            select.innerHTML = '<option value="">-- सामान रोज्नुहोस् --</option>';
-            products.forEach(p => { if(p.qty > 0) select.innerHTML += `<option value="${p.name}">${p.name} (${p.qty})</option>`; });
+            select.innerHTML = '<option value="">सामान छान्नुहोस्</option>';
+            products.forEach((p, idx) => { if(p.qty > 0) select.innerHTML += `<option value="${idx}">${p.name} (रु ${p.price})</option>`; });
         }
     }
 
     function updateAvailableQty() {
-        const prodName = document.getElementById('s-product').value;
-        const prod = products.find(p => p.name === prodName);
-        document.getElementById('available-qty').textContent = prod ? `दर: रु ${prod.price} | स्टक: ${prod.qty}` : '';
-    }
-
-    function processSale() {
-        const farmer = document.getElementById('s-farmer').value.trim(); const prodName = document.getElementById('s-product').value;
-        const qty = parseInt(document.getElementById('s-qty').value); const mode = document.getElementById('s-mode').value;
-        const timestamp = new Date().toLocaleString('ne-NP'); const id = Date.now();
-
-        if (!farmer || !prodName || !qty) return;
-        const prod = products.find(p => p.name === prodName);
-        if (!prod || prod.qty < qty) { alert("स्टक पर्याप्त छैन!"); return; }
-
-        const totalBill = qty * prod.price;
-        prod.qty -= qty;
-
-        if (mode === "Cash") totalCash += totalBill; else if (mode === "QR") totalQR += totalBill; else credits[farmer] = (credits[farmer] || 0) + totalBill;
-
-        salesReport.push({ id, timestamp, farmer, name: prodName, qty, total: totalBill, mode });
-        masterStatement.unshift({ id, timestamp, type: "बिल बिक्री", party: farmer, desc: `${prodName} (${qty} Qty)`, amt: totalBill, status: mode, itemName: prodName, itemQty: qty });
-
-        saveToLocalStorage(); 
-        
-        // सिधै बिल प्रिन्ट पपअप खोल्ने
-        printA4Invoice('ग्राहक बिक्री (Sales)', farmer, timestamp, mode, prodName, qty, totalBill);
-        
-        initSystem(); 
-        document.getElementById('sale-form').reset();
-    }
-
-    function printA4Invoice(type, party, date, mode, itemName, qty, total) {
-        document.getElementById('inv-type').textContent = type;
-        document.getElementById('inv-party').textContent = party;
-        document.getElementById('inv-date').textContent = date;
-        document.getElementById('inv-mode').textContent = mode;
-        document.getElementById('inv-item-name').textContent = itemName;
-        document.getElementById('inv-item-qty').textContent = qty;
-        
-        let rate = (total / qty).toFixed(2);
-        document.getElementById('inv-item-rate').textContent = "रु " + rate;
-        document.getElementById('inv-item-total').textContent = "रु " + total.toLocaleString();
-        document.getElementById('inv-grand-total').textContent = "रु " + total.toLocaleString();
-
-        window.print();
-    }
-
-    // ❌ कारोबार डिलिट गर्ने मुख्य प्रणाली (रिभर्स इफेक्ट सहित)
-    function deleteTransaction(id) {
-        if(!confirm("⚠️ के तपाईं यो कारोबार सधैँको लागि हटाउन चाहनुहुन्छ? यसले स्टक र सेभिङ्सलाई पनि मिलाउनेछ।")) return;
-
-        const idx = masterStatement.findIndex(m => m.id === id);
-        if (idx === -1) return;
-
-        const tx = masterStatement[idx];
-
-        // १. यदि बिक्री बिल हो भने: स्टक फिर्ता बढाउने, पैसा घटाउने
-        if (tx.type === "बिल बिक्री") {
-            let prod = products.find(p => p.name.toLowerCase() === tx.itemName.toLowerCase());
-            if (prod) prod.qty += tx.itemQty; 
-
-            if (tx.status === "Cash") totalCash -= tx.amt;
-            else if (tx.status === "QR") totalQR -= tx.amt;
-            else if (tx.status === "Credit" && credits[tx.party]) {
-                credits[tx.party] -= tx.amt;
-                if (credits[tx.party] <= 0) delete credits[tx.party];
-            }
-            salesReport = salesReport.filter(s => s.id !== id);
-        }
-        // २. यदि खरिद दाखिला हो भने: स्टक घटाउने, पैसा फिर्ता बढाउने
-        else if (tx.type === "खरिद दाखिला") {
-            let prod = products.find(p => p.name.toLowerCase() === tx.itemName.toLowerCase());
-            if (prod) prod.qty -= tx.itemQty;
-
-            if (tx.status === "Cash") totalCash += tx.amt;
-            else if (tx.status === "QR") totalQR += tx.amt;
-            else if (tx.status === "Credit" && supplierCredits[tx.party]) {
-                supplierCredits[tx.party] -= tx.amt;
-                if (supplierCredits[tx.party] <= 0) delete supplierCredits[tx.party];
-            }
-            purchaseReport = purchaseReport.filter(p => p.id !== id);
-        }
-        // ३. सामान्य दाखिला वा खर्च व्यवस्थापन
-        else if (tx.type === "सिधै दाखिला") {
-            if (tx.status === "Cash") totalCash -= tx.amt; else totalQR -= tx.amt;
-        }
-        else if (tx.type === "नगद/बैंक खर्च") {
-            if (tx.status === "Cash") totalCash += tx.amt; else totalQR += tx.amt;
-        }
-        else if (tx.type === "आन्तरिक रकमान्तर") {
-            let parts = tx.status.split('->');
-            if(parts[0] === "Cash") { totalCash += tx.amt; totalQR -= tx.amt; } else { totalQR += tx.amt; totalCash -= tx.amt; }
-        }
-
-        // मास्टर लगबाट पनि हटाउने
-        masterStatement.splice(idx, 1);
-        saveToLocalStorage();
-        initSystem();
-        alert("कारोबार सफलतापूर्वक रद्द गरियो।");
-    }
-
-    function collectCustomerCredit(farmer) {
-        const amount = parseFloat(prompt(`ग्राहक ${farmer} बाट प्राप्त रकम:`));
-        if (!amount || amount <= 0) return;
-        credits[farmer] -= amount; if(credits[farmer] <= 0) delete credits[farmer];
-        totalCash += amount;
-        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "उधारो संकलन", party: farmer, desc: `ग्राहकबाट उधारो असुली`, amt: amount, status: "Cash" });
-        saveToLocalStorage(); initSystem();
-    }
-
-    function payToSupplier(supplier, index) {
-        const row = document.getElementById('supplier-ledger-table').rows[index];
-        const amount = parseFloat(row.querySelector('.pay-amt').value);
-        const source = row.querySelector('.pay-src').value;
-        if (!amount || amount <= 0) return;
-        if (source === "Cash") totalCash -= amount; else totalQR -= amount;
-        supplierCredits[supplier] -= amount; if (supplierCredits[supplier] <= 0) delete supplierCredits[supplier];
-        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "सप्लायर भुक्तानी", party: supplier, desc: `सप्लायरको उधारो फर्स्यौट`, amt: amount, status: source });
-        saveToLocalStorage(); initSystem(); alert("सप्लायर भुक्तानी सफल।");
-    }
-
-    function calculateDashboard() {
-        document.getElementById('dash-total-items').textContent = products.reduce((acc, p) => acc + (p.qty > 0 ? p.qty : 0), 0);
-        document.getElementById('dash-total-cash').textContent = `रु ${totalCash.toLocaleString()}`;
-        document.getElementById('dash-total-qr').textContent = `रु ${totalQR.toLocaleString()}`;
-        document.getElementById('dash-total-credit').textContent = `रु ${Object.values(credits).reduce((acc, c) => acc + c, 0).toLocaleString()}`;
+        const idx = document.getElementById('s-product').value;
+        document.getElementById('available-qty').innerText = idx !== "" ? `गोदाममा उपलब्ध मौज्दात: ${products[idx].qty} पिस` : "";
     }
 
     function updateTables() {
-        const pBody = document.querySelector('#product-table tbody'); pBody.innerHTML = '';
-        products.forEach(p => { pBody.innerHTML += `<tr><td>${p.name}</td><td>${p.category}</td><td>${p.qty}</td><td>रु ${p.cost}</td><td>रु ${p.price}</td><td>${p.expiry || '-'}</td></tr>`; });
+        const pTable = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+        pTable.innerHTML = "";
+        products.forEach(p => { pTable.innerHTML += `<tr><td>${p.name}</td><td>${p.category}</td><td>${p.qty}</td><td>रु ${p.cost}</td><td>रु ${p.price}</td></tr>`; });
 
-        const cBody = document.querySelector('#credit-table tbody'); cBody.innerHTML = '';
-        Object.keys(credits).forEach(farmer => {
-            cBody.innerHTML += `<tr><td>${farmer}</td><td class="text-red">रु ${credits[farmer]}</td><td><button onclick="collectCustomerCredit('${farmer}')">💰 संकलन</button></td></tr>`;
+        const cTable = document.getElementById('credit-table').getElementsByTagName('tbody')[0]; cTable.innerHTML = "";
+        Object.keys(credits).forEach(name => {
+            if(credits[name] > 0) { cTable.innerHTML += `<tr><td>${name}</td><td>रु ${credits[name].toLocaleString()}</td><td><button class="btn-invoice" onclick="clearCustomerCredit('${name}')">प्राप्त भयो</button></td></tr>`; }
         });
 
-        const sBody = document.querySelector('#supplier-ledger-table tbody'); sBody.innerHTML = ''; let sIdx = 1;
-        Object.keys(supplierCredits).forEach(sup => {
-            let bankInfo = supplierProfiles[sup] ? supplierProfiles[sup].bank : '-';
-            sBody.innerHTML += `<tr><td>${sup}</td><td>${bankInfo}</td><td class="text-red">रु ${supplierCredits[sup]}</td><td><input type="number" class="pay-amt"></td><td><select class="pay-src"><option value="QR">QR</option><option value="Cash">Cash</option></select></td><td><button onclick="payToSupplier('${sup}', ${sIdx})">💸 तिर्नुहोस्</button></td></tr>`;
-            sIdx++;
+        const sTable = document.getElementById('sales-report-table').getElementsByTagName('tbody')[0]; sTable.innerHTML = "";
+        salesReport.forEach(s => { sTable.innerHTML += `<tr><td>${s.timestamp}</td><td>${s.farmer}</td><td>${s.productName}</td><td>${s.qty}</td><td>रु ${s.total.toLocaleString()}</td><td>${s.mode}</td></tr>`; });
+
+        const mTable = document.getElementById('master-statement-table').getElementsByTagName('tbody')[0]; mTable.innerHTML = "";
+        masterStatement.forEach(m => {
+            mTable.innerHTML += `<tr><td>${m.timestamp}</td><td>${m.type}</td><td>${m.desc}</td><td>रु ${m.amt.toLocaleString()}</td><td>${m.status}</td><td><button class="btn-invoice" onclick="printOldInvoice(${m.id})">🖨️ बिल</button><button class="btn-delete" onclick="deleteTransaction(${m.id})">❌ रद्द</button></td></tr>`;
         });
-
-        const srBody = document.querySelector('#sales-report-table tbody'); srBody.innerHTML = '';
-        salesReport.forEach(r => { srBody.innerHTML += `<tr><td>${r.timestamp}</td><td>${r.farmer}</td><td>${r.name}</td><td>${r.qty}</td><td>रु ${r.total}</td><td>${r.mode}</td></tr>`; });
-
-        const prBody = document.querySelector('#purchase-report-table tbody'); prBody.innerHTML = '';
-        purchaseReport.forEach(r => { prBody.innerHTML += `<tr><td>${r.timestamp}</td><td>${r.supplier}</td><td>${r.name}</td><td>${r.category}</td><td>${r.qty}</td><td>रु ${r.cost}</td><td>${r.mode}</td></tr>`; });
-
-        // एकीकृत मास्टर तालिका (प्रिन्ट र डिलिट एक्सन बटन सहित)
-        const msBody = document.querySelector('#master-statement-table tbody'); msBody.innerHTML = '';
-        masterStatement.forEach(m => { 
-            let printBtn = (m.type === "बिल बिक्री" || m.type === "खरिद दाखिला") ? 
-                `<button class="btn-invoice" onclick="printA4Invoice('${m.type}', '${m.party}', '${m.timestamp}', '${m.status}', '${m.itemName}', ${m.itemQty}, ${m.amt})">🖨️ बिल</button>` : '';
-            
-            msBody.innerHTML += `<tr>
-                <td>${m.timestamp}</td><td>${m.type}</td><td>${m.party}</td><td>${m.desc}</td><td>रु ${m.amt}</td><td>${m.status}</td>
-                <td>
-                    ${printBtn}
-                    <button class="btn-delete" onclick="deleteTransaction(${m.id})">❌ हटाउने</button>
-                </td>
-            </tr>`; 
-        });
-
-        let totalSalesVal = salesReport.reduce((acc, s) => acc + s.total, 0);
-        let totalCostVal = salesReport.reduce((acc, s) => {
-            let matched = purchaseReport.find(p => p.name.toLowerCase() === s.name.toLowerCase());
-            return acc + (s.qty * (matched ? matched.cost : 0));
-        }, 0);
-        document.getElementById('pl-total-sales').textContent = `रु ${totalSalesVal.toLocaleString()}`;
-        document.getElementById('pl-total-cost').textContent = `रु ${totalCostVal.toLocaleString()}`;
-        document.getElementById('pl-net-profit').textContent = `रु ${(totalSalesVal - totalCostVal).toLocaleString()}`;
     }
+
+    function processSale() {
+        const farmer = document.getElementById('s-farmer').value.trim();
+        const pIdx = document.getElementById('s-product').value;
+        const qty = parseInt(document.getElementById('s-qty').value);
+        const mode = document.getElementById('s-mode').value;
+
+        if(!farmer || pIdx === "" || !qty || qty <= 0) { alert("विवरण अपूर्ण छ!"); return; }
+        const prod = products[pIdx];
+        if(qty > prod.qty) { alert("गोदाममा स्टक पर्याप्त छैन!"); return; }
+
+        const total = qty * prod.price; prod.qty -= qty;
+        if(mode === "Cash") totalCash += total; else if(mode === "QR") totalQR += total; else credits[farmer] = (credits[farmer] || 0) + total;
+
+        const id = Date.now(), timestamp = new Date().toLocaleString('ne-NP');
+        salesReport.unshift({ id, timestamp, farmer, productName: prod.name, qty, total, mode });
+        masterStatement.unshift({ id, timestamp, type: "सामान बिक्री", party: farmer, desc: `${prod.name} (${qty} पिस बिक्री)`, amt: total, status: mode });
+
+        saveToLocalStorage(); initSystem();
+        setupInvoicePrint(farmer, timestamp, mode, prod.name, qty, prod.price, total);
+    }
+
+    // सेटिङ्गको आधारमा बिल प्रिन्ट सेट गर्ने फङ्सन
+    function setupInvoicePrint(party, date, mode, item, qty, rate, total) {
+        document.getElementById('inv-shop-name').innerText = sysConfig.shopName;
+        document.getElementById('inv-shop-address').innerText = sysConfig.address;
+        document.getElementById('inv-shop-phone').innerText = sysConfig.phone;
+        document.getElementById('inv-shop-pan').innerText = sysConfig.pan;
+        
+        document.getElementById('inv-party').innerText = party;
+        document.getElementById('inv-date').innerText = date;
+        document.getElementById('inv-mode').innerText = mode;
+        
+        document.getElementById('inv-item-name').innerText = item;
+        document.getElementById('inv-item-qty').innerText = qty + " पिस";
+        document.getElementById('inv-item-rate').innerText = "रु " + rate;
+        document.getElementById('inv-item-total').innerText = "रु " + total.toLocaleString();
+        document.getElementById('inv-grand-total').innerText = "रु " + total.toLocaleString();
+
+        // सेटिङ्गको कलर बिलको हेडर तालिकामा हाल्ने
+        document.querySelector('.invoice-table th').style.backgroundColor = sysConfig.themeColor;
+
+        // छाप र हस्ताक्षर राख्ने
+        const stampImg = document.getElementById('inv-stamp-img');
+        if(sysConfig.stampData) { stampImg.src = sysConfig.stampData; stampImg.style.display = "block"; } else { stampImg.style.display = "none"; }
+        
+        const sigImg = document.getElementById('inv-sig-img');
+        if(sysConfig.sigData) { sigImg.src = sysConfig.sigData; sigImg.style.display = "block"; } else { sigImg.style.display = "none"; }
+
+        window.print();
+        document.getElementById('sale-form').reset();
+    }
+
+    function addProduct() {
+        const supplier = document.getElementById('p-supplier').value.trim();
+        const name = document.getElementById('p-name').value.trim();
+        const category = document.getElementById('p-category').value;
+        const qty = parseInt(document.getElementById('p-qty').value);
+        const cost = parseFloat(document.getElementById('p-cost').value);
+        const price = parseFloat(document.getElementById('p-price').value);
+        const mode = document.getElementById('p-mode').value;
+
+        if(!supplier || !name || !qty || !cost || !price) { alert("सबै विवरण भर्नुहोस्!"); return; }
+        const totalCost = qty * cost;
+
+        let existing = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+        if(existing) { existing.qty += qty; existing.cost = cost; existing.price = price; }
+        else { products.push({ name, category, qty, cost, price }); }
+
+        if(mode === "Cash") totalCash -= totalCost; else if(mode === "QR") totalQR -= totalCost;
+
+        const id = Date.now(), timestamp = new Date().toLocaleString('ne-NP');
+        purchaseReport.unshift({ id, timestamp, supplier, name, category, qty, cost, mode });
+        masterStatement.unshift({ id, timestamp, type: "खरिद दाखिला", party: supplier, desc: `${name} खरिद`, amt: totalCost, status: mode });
+
+        saveToLocalStorage(); initSystem();
+        document.getElementById('product-form').reset();
+        alert("सामान दाखिला भयो।");
+    }
+
+    function clearCustomerCredit(name) {
+        const amt = credits[name]; if(amt <= 0) return;
+        totalCash += amt; credits[name] = 0;
+        masterStatement.unshift({ id: Date.now(), timestamp: new Date().toLocaleString('ne-NP'), type: "उधारो संकलन", party: name, desc: `उधारो चुक्ता`, amt: amt, status: "Cash" });
+        saveToLocalStorage(); initSystem(); alert("उधारो असुल भयो।");
+    }
+
+    function printOldInvoice(id) {
+        const sale = salesReport.find(s => s.id === id);
+        const mst = masterStatement.find(m => m.id === id);
+        if(!mst) return;
+        setupInvoicePrint(mst.party, mst.timestamp, mst.status, sale ? sale.productName : mst.desc, sale ? sale.qty : 1, sale ? (sale.total/sale.qty) : mst.amt, mst.amt);
+    }
+
+    function deleteTransaction(id) {
+        if(!confirm("के यो कारोबार रद्द गर्ने हो?")) return;
+        const idx = masterStatement.findIndex(m => m.id === id); if(idx === -1) return;
+        masterStatement.splice(idx, 1);
+        saveToLocalStorage(); initSystem(); alert("कारोबार रद्द भयो।");
+    }
+
+    // सुरुमा सेटिङ्ग लोड गर्ने
+    window.onload = function() { loadSettings(); };
 </script>
 </body>
 </html>
